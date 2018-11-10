@@ -10,23 +10,24 @@ services:
     environment:
       - OAUTH2_SHARE_ERROR_DEBUG=1
       - LOG_LEVEL=debug
-      - OAUTH2_CONSENT_URL=https://192.168.142.1:4447/consent
-      - OAUTH2_LOGIN_URL=https://192.168.142.1:4447/login
-      - OAUTH2_ISSUER_URL=https://192.168.142.1:4444
+      - OAUTH2_CONSENT_URL=https://10.168.142.1:4447/consent
+      - OAUTH2_LOGIN_URL=https://10.168.142.1:4447/login
+      - OAUTH2_ISSUER_URL=https://10.168.142.1:4444
       - DATABASE_URL=memory
       - SYSTEM_SECRET=7720265ad75cbc30bae9f45ec720ec7eda1c54c67dc0e1655de32f54492278ee
       - HTTPS_ALLOW_TERMINATION_FROM=172.17.0.0/24
     command: |
      serve all --dangerous-force-http
 
-  hydra_ui:
+  hydra-ui:
     image: node:alpine
     #    ports:
     #      - "4447:4447"
     command: |
       yarn start
     environment:
-    - HYDRA_ADMIN_URL=http://172.17.0.1:4445
+    - HYDRA_ADMIN_URL=http://hydra:4445
+    - PORT=4447
     volumes:
     - $PWD/hydra-login-consent-node:/work
     working_dir: /work
@@ -39,6 +40,7 @@ services:
       - "4445:4445"
       - "4446:4446"
       - "4447:4447"
+      - "5000:5000"
     volumes:
     - $PWD/server.crt:/etc/server.crt
     - $PWD/server.key:/etc/server.key

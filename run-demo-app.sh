@@ -11,7 +11,7 @@ docker-compose exec hydra hydra --endpoint http://hydra:4445 \
     --response-types code,id_token \
     --grant-types refresh_token,authorization_code,implicit \
     --scope openid,offline,email,profile \
-    --callbacks https://10.168.142.1:4446/callback,https://10.168.142.1:5000/v3/OS-FEDERATION/identity_providers/myidp/protocols/openid/auth
+    --callbacks https://10.168.142.1:4446/callback,https://10.168.142.1:5000/v3/OS-FEDERATION/identity_providers/myidp/protocols/openid/auth,https://10.168.142.1:5000/v3/auth/OS-FEDERATION/websso/openid/redirect
 
 docker-compose exec hydra hydra --endpoint http://hydra:4445 \
   clients delete \
